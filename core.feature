@@ -81,22 +81,22 @@ Feature: Core feature elements execution
       """
     Then the feature should have run successfully
 
-  Scenario: Steps accepting a mutliline parameter (PyString)
+  Scenario: Steps accepting a DocString parameter
     Given a step definition matching /^I call a step with the following text:$/ recording its parameters
     And a step definition matching /^I call a step with "(.*)" and the following text:$/ recording its parameters
     And a step definition matching /^the (\d+)(?:st|nd) received parameter should be "(.*)"$/ checking a recorded parameter
     And a step definition matching /^the (\d+)(?:nd) received parameter should be:$/ checking a recorded parameter
     When I run the following feature:
       """
-      Feature: Steps receiving a multiline parameter
-        Scenario: One-liner multiline parameter
+      Feature: Steps receiving a DocString parameter
+        Scenario: One-liner DocString parameter
           When I call a step with the following text:
             \"\"\"
             The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae.
             \"\"\"
           Then the 1st received parameter should be "The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae."
 
-        Scenario: Matching group and one-liner PyString
+        Scenario: Matching group and one-liner DocString
           When I call a step with "Cucumber" and the following text:
             \"\"\"
             The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae.
@@ -104,7 +104,7 @@ Feature: Core feature elements execution
           Then the 1st received parameter should be "Cucumber"
           And the 2nd received parameter should be "The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae."
       
-        Scenario: Matching group and multiline PyString
+        Scenario: Matching group and multiline DocString
           When I call a step with "Cucumber" and the following text:
             \"\"\"
             cu·cum·ber |ˈkyoōˌkəmbər|
