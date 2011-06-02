@@ -2,7 +2,7 @@
 
 This is the collection of features that are expected to run successfully against any Cucumber implementation.
 
-The functionalities described within [`basic_feature_execution.feature`](https://github.com/aslakhellesoy/cucumber-features/blob/master/basic_feature_execution.feature) should be sufficient to execute the whole Cucumber feature suite. 
+The functionalities described within [core.feature](https://github.com/cucumber/cucumber-features/blob/master/core.feature) should be sufficient to execute the whole Cucumber feature suite. 
 
 ## Step definition specifications
 
