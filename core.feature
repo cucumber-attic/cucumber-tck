@@ -1,7 +1,7 @@
-Feature: Basic feature execution
+Feature: Core feature elements execution
   In order to have automated acceptance tests
   As a developer
-  I want Cucumber to run features
+  I want Cucumber to run core feature elements
 
   Scenario: Simple flat steps
     Given a step definition matching /^a step passes$/
