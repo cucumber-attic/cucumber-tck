@@ -1,4 +1,4 @@
-Feature: Tags feature
+Feature: Tags
   In order to be able to run certain tagged tests
   As a developer
   I want to be able to specify which tags to run(or not run)
