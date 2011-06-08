@@ -4,7 +4,7 @@ Feature: Tags feature
   I want to be able to specify which tags to run(or not run)
   
   Background:
-    Given a file named "features/tags.feature" with:
+    Given the following feature:
       """
       @parent-tag
       Feature: Sample
@@ -21,7 +21,7 @@ Feature: Tags feature
         Scenario: Yet another sample scenario
           Given passing
       """
-    And a file named "features/another-tags.feature" with:
+    And the following feature:
       """
       @another-parent-tag
       Feature: Second Sample
@@ -38,7 +38,7 @@ Feature: Tags feature
       """
 
   Scenario: Run all tests with the tag '@sample-tag'
-    When I run `cucumber --tags @sample-tag`
+    When I run cucumber with tags "@sample-tag"
     Then it should pass with exactly:
       """
       @parent-tag
