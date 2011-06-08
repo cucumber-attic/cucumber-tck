@@ -2,8 +2,8 @@ Feature: Tags
   In order to be able to run certain tagged tests
   As a developer
   I want to be able to specify which tags to run(or not run)
-  
-  Background:
+
+  Scenario: Run all tests with the tag '@sample-tag'
     Given the following feature:
       """
       @parent-tag
@@ -36,8 +36,6 @@ Feature: Tags
         Scenario: Oh god when will it stop sample scenario
           Given passing
       """
-
-  Scenario: Run all tests with the tag '@sample-tag'
     When I run cucumber with tags "@sample-tag"
     Then it should pass with exactly:
       """
@@ -61,6 +59,38 @@ Feature: Tags
       """
   
   Scenario: Run all tests without the tag '@sample-tag'
+    Given the following feature:
+      """
+      @parent-tag
+      Feature: Sample
+        
+        @sample-tag
+        Scenario: Sample scenario
+          Given passing
+        
+        @another-sample-tag
+        Scenario: Another sample scenario
+          Given passing
+          
+        @sample-tag @another-sample-tag
+        Scenario: Yet another sample scenario
+          Given passing
+      """
+    And the following feature:
+      """
+      @another-parent-tag
+      Feature: Second Sample
+        
+        Scenario: Second Sample scenario
+          Given passing
+        
+        @sample-tag
+        Scenario: Holy cow, another sample scenario
+          Given passing
+          
+        Scenario: Oh god when will it stop sample scenario
+          Given passing
+      """
     When I run cucumber with tags "~@sample-tag"
     Then it should pass with exactly:
       """
@@ -86,6 +116,38 @@ Feature: Tags
       """
       
   Scenario: Run all tests with the feature tag '@parent-tag'
+    Given the following feature:
+      """
+      @parent-tag
+      Feature: Sample
+        
+        @sample-tag
+        Scenario: Sample scenario
+          Given passing
+        
+        @another-sample-tag
+        Scenario: Another sample scenario
+          Given passing
+          
+        @sample-tag @another-sample-tag
+        Scenario: Yet another sample scenario
+          Given passing
+      """
+    And the following feature:
+      """
+      @another-parent-tag
+      Feature: Second Sample
+        
+        Scenario: Second Sample scenario
+          Given passing
+        
+        @sample-tag
+        Scenario: Holy cow, another sample scenario
+          Given passing
+          
+        Scenario: Oh god when will it stop sample scenario
+          Given passing
+      """
     When I run cucumber with tags "@parent-tag"
     Then it should pass with exactly:
       """
@@ -110,6 +172,38 @@ Feature: Tags
       """
       
   Scenario: Run all the tests with the tags '@sample-tag' OR '@another-sample-tag'
+    Given the following feature:
+      """
+      @parent-tag
+      Feature: Sample
+        
+        @sample-tag
+        Scenario: Sample scenario
+          Given passing
+        
+        @another-sample-tag
+        Scenario: Another sample scenario
+          Given passing
+          
+        @sample-tag @another-sample-tag
+        Scenario: Yet another sample scenario
+          Given passing
+      """
+    And the following feature:
+      """
+      @another-parent-tag
+      Feature: Second Sample
+        
+        Scenario: Second Sample scenario
+          Given passing
+        
+        @sample-tag
+        Scenario: Holy cow, another sample scenario
+          Given passing
+          
+        Scenario: Oh god when will it stop sample scenario
+          Given passing
+      """
     When I run cucumber with tags "@parent-tag,@another-sample-tag"
     Then it should pass with exactly:
       """
