@@ -36,7 +36,7 @@ Feature: Tags
         Scenario: Oh god when will it stop sample scenario
           Given passing
       """
-    When I run cucumber with tags "@sample-tag"
+    When I run cucumber including tags "@sample-tag"
     Then it should pass with exactly:
       """
       @parent-tag
@@ -91,7 +91,7 @@ Feature: Tags
         Scenario: Oh god when will it stop sample scenario
           Given passing
       """
-    When I run cucumber with tags "~@sample-tag"
+    When I run cucumber excluding tags "@sample-tag"
     Then it should pass with exactly:
       """
       @parent-tag
@@ -148,7 +148,7 @@ Feature: Tags
         Scenario: Oh god when will it stop sample scenario
           Given passing
       """
-    When I run cucumber with tags "@parent-tag"
+    When I run cucumber including tags "@parent-tag"
     Then it should pass with exactly:
       """
       @parent-tag
@@ -204,7 +204,7 @@ Feature: Tags
         Scenario: Oh god when will it stop sample scenario
           Given passing
       """
-    When I run cucumber with tags "@parent-tag,@another-sample-tag"
+    When I run cucumber including tags "@parent-tag" or "@another-sample-tag"
     Then it should pass with exactly:
       """
       @parent-tag
@@ -231,5 +231,53 @@ Feature: Tags
       
       4 scenarios (4 passed)
       4 steps (4 passed)
+      0m3.750s
+      """
+
+  Scenario: Run all the tests with the tags '@sample-tag' AND '@another-sample-tag'
+    Given the following feature:
+      """
+      @parent-tag
+      Feature: Sample
+        
+        @sample-tag
+        Scenario: Sample scenario
+          Given passing
+        
+        @another-sample-tag
+        Scenario: Another sample scenario
+          Given passing
+          
+        @sample-tag @another-sample-tag
+        Scenario: Yet another sample scenario
+          Given passing
+      """
+    And the following feature:
+      """
+      @another-parent-tag
+      Feature: Second Sample
+        
+        Scenario: Second Sample scenario
+          Given passing
+        
+        @sample-tag
+        Scenario: Holy cow, another sample scenario
+          Given passing
+          
+        Scenario: Oh god when will it stop sample scenario
+          Given passing
+      """
+    When I run cucumber including tags "@parent-tag" and "@another-sample-tag"
+    Then it should pass with exactly:
+      """
+      @parent-tag
+      Feature: Sample
+        
+        @sample-tag @another-sample-tag
+        Scenario: Yet another sample scenario
+          Given passing
+
+      1 scenario (1 passed)
+      1 steps (1 passed)
       0m3.750s
       """
