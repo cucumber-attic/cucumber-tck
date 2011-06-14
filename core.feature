@@ -1,124 +1,83 @@
-Feature: Core feature elements execution
+Feature: Core feature elements
   In order to have automated acceptance tests
   As a developer
   I want Cucumber to run core feature elements
 
-  Scenario: Simple flat steps
-    Given a step definition matching /^a step passes$/
-    When I run the following feature:
+  Scenario: Feature headers
+    Given the following scenario:
       """
-      Feature: Simple flat steps
-        In order to execute features
-        As cucumber
-        I want to run features successfully
+      Feature: a feature
+        In order to get results
+        As a user
+        I want to do something
+      """
+    When Cucumber runs the feature
+    Then the feature should have passed
 
-        Scenario: Simple flat step
-          Given a step passes
-          When a step passes
-          Then a step passes
+  Scenario: Simple flat steps
+    Given the following scenario:
       """
-    Then the feature should have run successfully
+      Given a calculator
+      When the calculator computes PI
+      Then the calculator returns PI
+      """
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario should have passed
 
   Scenario: Given, When, Then, And and But steps
-    Given a "Given" step definition matching /^a "Given" step passes$/
-    And a "When" step definition matching /^a "When" step passes$/
-    And a "Then" step definition matching /^a "Then" step passes$/
-    When I run the following feature:
+    Given the following scenario:
       """
-      Feature: Given, When, Then, And and But step execution
-        Scenario: All kinds of steps
-          Given a "Given" step passes
-          When a "When" step passes
-          Then a "Then" step passes
+      Given a calculator
+      When the calculator adds up 1 and 2
+      And the calculator adds up 3 and 0.14159265
+      Then the calculator returns PI
+      But the calculator does not return 3
+      """
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario should have passed
 
-        Scenario: All kinds of steps with And's and But's
-          Given a "Given" step passes
-          And a "Given" step passes
-          But a "Given" step passes
-          When a "When" step passes
-          And a "When" step passes
-          But a "When" step passes
-          Then a "Then" step passes
-          And a "Then" step passes
-          But a "Then" step passes
-      """
-    Then the feature should have run successfully
 
-  Scenario: Step definition body is executed
-    Given a step definition matching /^I call a watched step$/ counting its calls
-    And a step definition matching /^the watched step should have been called (\d+) times?$/ checking the number of step calls
-    When I run the following feature:
+  Scenario: Single-parameter step
+    Given the following scenario:
       """
-      Feature: Step definition body execution
-        Scenario: Step definition body is executed once
-          When I call a watched step
-          Then the watched step should have been called 1 time
+      Given a calculator
+      When the calculator computes PI
+      Then the calculator returns "3.14159265"
+      """
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario should have passed
 
-        Scenario: Step definition body is executed several times
-          When I call a watched step
-          And I call a watched step
-          And I call a watched step
-          Then the watched step should have been called 3 times
+  Scenario: Two-parameter step
+    Given the following scenario:
       """
-    Then the feature should have run successfully      
+      Given a calculator
+      When the calculator adds up "12" and "51"
+      Then the calculator returns "63"
+      """
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario should have passed
 
-  Scenario: Steps accepting parameters
-    Given a step definition matching /^I call a step with "(.*)"$/ recording its parameters
-    And a step definition matching /^I call a step with "(.*)", "(.*)" and "(.*)"$/ recording its parameters
-    And a step definition matching /^the (\d+)(?:st|nd|rd) received parameter should be "(.*)"$/ checking a recorded parameter
-    When I run the following feature:
+  Scenario: Three-parameter step
+    Given the following scenario:
       """
-      Feature: Steps receiving parameters
-        Scenario: Single-parameter step
-          When I call a step with "a parameter"
-          Then the 1st received parameter should be "a parameter"
-
-        Scenario: Three-parameter step
-          When I call a step with "one", "two" and "three"
-          Then the 1st received parameter should be "one"
-          And the 2nd received parameter should be "two"
-          And the 3rd received parameter should be "three"
+      Given a calculator
+      When the calculator adds up "3", "4" and "5"
+      Then the calculator returns "12"
       """
-    Then the feature should have run successfully
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario should have passed
 
   Scenario: Steps accepting a DocString parameter
-    Given a step definition matching /^I call a step with the following text:$/ recording its parameters
-    And a step definition matching /^I call a step with "(.*)" and the following text:$/ recording its parameters
-    And a step definition matching /^the (\d+)(?:st|nd) received parameter should be "(.*)"$/ checking a recorded parameter
-    And a step definition matching /^the (\d+)(?:nd) received parameter should be:$/ checking a recorded parameter
-    When I run the following feature:
+    Given the following scenario:
       """
-      Feature: Steps receiving a DocString parameter
-        Scenario: One-liner DocString parameter
-          When I call a step with the following text:
-            \"\"\"
-            The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae.
-            \"\"\"
-          Then the 1st received parameter should be "The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae."
-
-        Scenario: Matching group and one-liner DocString
-          When I call a step with "Cucumber" and the following text:
-            \"\"\"
-            The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae.
-            \"\"\"
-          Then the 1st received parameter should be "Cucumber"
-          And the 2nd received parameter should be "The cucumber (Cucumis sativus) is a widely cultivated plant in the gourd family Cucurbitaceae."
-      
-        Scenario: Matching group and multiline DocString
-          When I call a step with "Cucumber" and the following text:
-            \"\"\"
-            cu·cum·ber |ˈkyoōˌkəmbər|
-            noun
-              1. a long, green-skinned fruit with watery flesh, usually eaten raw in salads or pickled.
-              2. the climbing plant of the gourd family that yields this fruit, native to the Chinese Himalayan region. It is widely cultivated but very rare in the wild. • Cucumis sativus, family Cucurbitaceae.
-            \"\"\"
-          Then the 1st received parameter should be "Cucumber"
-          And the 2nd received parameter should be:
-            \"\"\"
-            cu·cum·ber |ˈkyoōˌkəmbər|
-            noun
-              1. a long, green-skinned fruit with watery flesh, usually eaten raw in salads or pickled.
-              2. the climbing plant of the gourd family that yields this fruit, native to the Chinese Himalayan region. It is widely cultivated but very rare in the wild. • Cucumis sativus, family Cucurbitaceae.
-            \"\"\"
+      Given a calculator
+      When the calculator adds up the following numbers:
+        \"\"\"
+        3
+        6
+        1
+        \"\"\"
+      Then the calculator returns "10"
       """
-    Then the feature should have run successfully
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario should have passed
