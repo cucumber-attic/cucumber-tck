@@ -4,7 +4,7 @@ Feature: Core feature elements
   I want Cucumber to run core feature elements
 
   Scenario: Feature headers
-    Given the following scenario:
+    Given the following feature:
       """
       Feature: a feature
         In order to get results
