@@ -31,14 +31,14 @@ Feature: Core: Scenarios, Steps, Mappings
       | I add 4 and 5   | failing |
       | the result is 9 | passing |
     Then the scenario fails
-    And the step "the result is 9" is not executed
+    And the step "Then the result is 9" is skipped
 
   Scenario: Pending step means the scenario is pending
     When Cucumber executes "Basic Arithmetic" with these step mappings:
       | I add 4 and 5   | pending |
       | the result is 9 | passing |
     Then the scenario is pending
-    And the step "the result is 9" is not executed
+    And the step "the result is 9" is skipped
 
   Scenario: Missing step mapping means the scenario is pending
     When Cucumber executes "Basic Arithmetic" with these step mappings:
