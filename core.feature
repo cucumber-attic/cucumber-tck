@@ -54,20 +54,20 @@ Feature: Core: Scenarios, Steps, Mappings
         I want to do something
       """
     When Cucumber runs the feature
-    Then the feature should have passed
+    Then the feature passes
 
   Scenario: Simple flat steps
-    Given the following scenario:
+    Given a scenario "Calculate PI" with:
       """
       Given a calculator
       When the calculator computes PI
       Then the calculator returns PI
       """
     When Cucumber runs the scenario with steps for a calculator
-    Then the scenario should have passed
+    Then the scenario passes
 
   Scenario: Given, When, Then, And and But steps
-    Given the following scenario:
+    Given a scenario "Simple math" with:
       """
       Given a calculator
       When the calculator adds up 1 and 2
@@ -76,41 +76,41 @@ Feature: Core: Scenarios, Steps, Mappings
       But the calculator does not return 3
       """
     When Cucumber runs the scenario with steps for a calculator
-    Then the scenario should have passed
+    Then the scenario passes
 
 
   Scenario: Single-parameter step
-    Given the following scenario:
+    Given a scenario "Calculate PI" with:
       """
       Given a calculator
       When the calculator computes PI
       Then the calculator returns "3.14159265"
       """
     When Cucumber runs the scenario with steps for a calculator
-    Then the scenario should have passed
+    Then the scenario passes
 
   Scenario: Two-parameter step
-    Given the following scenario:
+    Given a scenario "Add two numbers" with:
       """
       Given a calculator
       When the calculator adds up "12" and "51"
       Then the calculator returns "63"
       """
     When Cucumber runs the scenario with steps for a calculator
-    Then the scenario should have passed
+    Then the scenario passes
 
   Scenario: Three-parameter step
-    Given the following scenario:
+    Given a scenario "Add three numbers" with:
       """
       Given a calculator
       When the calculator adds up "3", "4" and "5"
       Then the calculator returns "12"
       """
     When Cucumber runs the scenario with steps for a calculator
-    Then the scenario should have passed
+    Then the scenario passes
 
   Scenario: Steps accepting a DocString parameter
-    Given the following scenario:
+    Given a scenario "Add three numbers" with:
       """
       Given a calculator
       When the calculator adds up the following numbers:
@@ -122,4 +122,4 @@ Feature: Core: Scenarios, Steps, Mappings
       Then the calculator returns "10"
       """
     When Cucumber runs the scenario with steps for a calculator
-    Then the scenario should have passed
+    Then the scenario passes
