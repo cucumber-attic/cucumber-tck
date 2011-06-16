@@ -40,11 +40,10 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the scenario is pending
     And the step "the result is 9" is skipped
 
-  Scenario: Missing step mapping means the scenario is pending
+  Scenario: Missing step mapping means the scenario is undefined
     When Cucumber executes "Basic Arithmetic" with these step mappings:
-      | I add 4 and 5   | missing |
       | the result is 9 | passing |
-    Then the scenario is pending
+    Then the scenario is undefined
 
   Scenario: Feature headers
     Given the following feature:
