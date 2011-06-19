@@ -1,32 +1,35 @@
 Feature: Core: Scenarios, Steps, Mappings
 
   Cucumber is a tool for executing business-readable specifications
-  written in Gherkin. The basic unit of both specification and 
+  written in Gherkin. The basic unit of both specification and
   execution is the Scenario. A Scenario is a list of steps, each of
   which representing an action performed by a user (or user agent)
   on the software product under development. When a Scenario is
   executed, its steps are applied to the software system in the order
   they are contained in the Scenario.
 
-  Gherkin is not a programming language, so in order to execute steps 
+  Gherkin is not a programming language, so in order to execute steps
   written in it, Cucumber must first look up a mapping from the text of
   each step to a function. If such a mapping exists, the function is
   executed, and the result is communicated to the user.
 
-  Background:
+  Scenario: All steps passing means the scenario passes
     Given a scenario "Basic Arithmetic" with:
       """
       When I add 4 and 5
       Then the result is 9
       """
-
-  Scenario: All steps passing means the scenario passes
     When Cucumber executes "Basic Arithmetic" with these step mappings:
       | I add 4 and 5   | passing |
-      | the result is 9 | passing | 
+      | the result is 9 | passing |
     Then the scenario passes
 
   Scenario: Failing step means the scenario fails
+    Given a scenario "Basic Arithmetic" with:
+      """
+      When I add 4 and 5
+      Then the result is 9
+      """
     When Cucumber executes "Basic Arithmetic" with these step mappings:
       | I add 4 and 5   | failing |
       | the result is 9 | passing |
@@ -34,6 +37,11 @@ Feature: Core: Scenarios, Steps, Mappings
     And the step "the result is 9" is skipped
 
   Scenario: Pending step means the scenario is pending
+    Given a scenario "Basic Arithmetic" with:
+      """
+      When I add 4 and 5
+      Then the result is 9
+      """
     When Cucumber executes "Basic Arithmetic" with these step mappings:
       | I add 4 and 5   | pending |
       | the result is 9 | passing |
@@ -41,6 +49,11 @@ Feature: Core: Scenarios, Steps, Mappings
     And the step "the result is 9" is skipped
 
   Scenario: Missing step mapping means the scenario is undefined
+    Given a scenario "Basic Arithmetic" with:
+      """
+      When I add 4 and 5
+      Then the result is 9
+      """
     When Cucumber executes "Basic Arithmetic" with these step mappings:
       | the result is 9 | passing |
     Then the scenario is undefined
