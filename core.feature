@@ -99,6 +99,16 @@ Feature: Core: Scenarios, Steps, Mappings
     When Cucumber runs the scenario with steps for a calculator
     Then the scenario passes
 
+  Scenario: Two-parameter step failing
+    Given a scenario "Add two numbers" with:
+      """
+      Given a calculator
+      When the calculator adds up "12" and "51"
+      Then the calculator returns "65"
+      """
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario fails
+
   Scenario: Three-parameter step
     Given a scenario "Add three numbers" with:
       """
@@ -118,8 +128,9 @@ Feature: Core: Scenarios, Steps, Mappings
         3
         6
         1
+        12
         \"\"\"
-      Then the calculator returns "10"
+      Then the calculator returns "22"
       """
     When Cucumber runs the scenario with steps for a calculator
     Then the scenario passes
