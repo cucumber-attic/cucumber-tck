@@ -78,6 +78,15 @@ Feature: Core: Scenarios, Steps, Mappings
     When Cucumber runs the scenario with steps for a calculator
     Then the scenario passes
 
+  Scenario: Failing steps
+    Given a scenario "Too simple math" with:
+      """
+      Given a calculator
+      When the calculator adds up 3 and 0.14
+      Then the calculator returns PI
+      """
+    When Cucumber runs the scenario with steps for a calculator
+    Then the scenario fails
 
   Scenario: Single-parameter step
     Given a scenario "Calculate PI" with:
