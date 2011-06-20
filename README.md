@@ -2,8 +2,12 @@
 
 This is the collection of features that are expected to run successfully against any Cucumber implementation.
 
-The functionalities described within [core.feature](https://github.com/cucumber/cucumber-features/blob/master/core.feature) should be sufficient to execute the whole Cucumber feature suite. 
+The functionality described within [core.feature](https://github.com/cucumber/cucumber-features/blob/master/core.feature) should be sufficient to execute the whole Cucumber feature suite. 
 
-## Step definition specifications
+## Running with Aruba and Cucumber 1.0
 
-TODO. See Cucumber.js' [step definitions](https://github.com/cucumber/cucumber-js/blob/master/features/step_definitions/cucumber_steps.js) for the time being.
+This project contains Ruby step definitions that can be used to run all the features with [Aruba](https://github.com/cucumber/aruba) and Cucumber 1.0.0 (ruby). The main reason for running with Aruba is that this can generate documentaion/examples from the features. See Aruba's documentation on reports for details.
+
+## Running with your own (bootstrapped) Cucumber implementation
+
+Once you manage to get the core.feature running you should be able to start running the other features as well...
