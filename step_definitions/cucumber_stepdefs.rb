@@ -38,23 +38,19 @@ When /^Cucumber runs the scenario with steps for a calculator$/ do
 end
 
 Then /^the scenario passes$/ do
-  assert_partial_output("1 scenario (1 passed)", all_output)
-  assert_success true
+  assert_passing_scenario
 end
 
 Then /^the scenario fails$/ do
-  assert_partial_output("1 scenario (1 failed)", all_output)
-  assert_success false
+  assert_failing_scenario
 end
 
 Then /^the scenario is pending$/ do
-  assert_partial_output("1 scenario (1 pending)", all_output)
-  assert_success true
+  assert_pending_scenario
 end
 
 Then /^the scenario is undefined$/ do
-  assert_partial_output("1 scenario (1 undefined)", all_output)
-  assert_success true
+  assert_undefined_scenario
 end
 
 Then /^the step "([^"]*)" is skipped$/ do |pattern|
@@ -62,6 +58,6 @@ Then /^the step "([^"]*)" is skipped$/ do |pattern|
 end
 
 Then /^the feature passes$/ do
-  assert_no_partial_output("failed", all_output)
+  assert_no_partial_output(failed_output, all_output)
   assert_success true
 end
