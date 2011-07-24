@@ -57,6 +57,7 @@ Feature: Core: Scenarios, Steps, Mappings
     And the step "the result is 9" has a passing mapping
     When Cucumber executes the scenario "Basic Arithmetic"
     Then the scenario is undefined
+    And the step "the result is 9" is skipped
 
   Scenario: Feature headers
     Given the following feature:
