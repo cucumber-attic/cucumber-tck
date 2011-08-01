@@ -23,6 +23,10 @@ Given /^the step "([^"]*)" has a failing mapping$/ do |step_name|
   write_failing_mapping(step_name)
 end
 
+Given /^the step "([^"]*)" has a mapping failing with the message "([^"]*)"$/ do |step_name, message|
+  write_failing_mapping_with_message(step_name, message)
+end
+
 When /^Cucumber executes the scenario "([^"]*)"$/ do |scenario_name|
   run_scenario(scenario_name)
 end
@@ -53,6 +57,14 @@ Then /^the scenario is undefined$/ do
   assert_undefined_scenario
 end
 
+Then /^the scenario called "([^"]*)" is reported as failing$/ do |scenario_name|
+  assert_scenario_reported_as_failing(scenario_name)
+end
+
+Then /^the scenario called "([^"]*)" is not reported as failing$/ do |scenario_name|
+  assert_scenario_not_reported_as_failing(scenario_name)
+end
+
 Then /^the step "([^"]*)" is skipped$/ do |pattern|
   assert_skipped(pattern)
 end
@@ -60,4 +72,9 @@ end
 Then /^the feature passes$/ do
   assert_no_partial_output(failed_output, all_output)
   assert_success true
+end
+
+Then /^the failure message "([^"]*)" is output$/ do |message|
+  assert_partial_output(message, all_output)
+  assert_success false
 end
