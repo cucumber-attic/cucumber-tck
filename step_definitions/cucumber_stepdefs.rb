@@ -65,6 +65,10 @@ Then /^the scenario called "([^"]*)" is not reported as failing$/ do |scenario_n
   assert_scenario_not_reported_as_failing(scenario_name)
 end
 
+Then /^the step "([^"]*)" passes$/ do |pattern|
+  assert_passed(pattern)
+end
+
 Then /^the step "([^"]*)" is skipped$/ do |pattern|
   assert_skipped(pattern)
 end

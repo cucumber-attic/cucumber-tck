@@ -14,12 +14,22 @@ EOF
   end
 
   def assert_skipped(pattern)
-    if File.exist?(File.join(current_dir, step_file(pattern)))
+    if pattern_exists?(pattern)
       raise "#{pattern} was not skipped"
+    end
+  end
+
+  def assert_passed(pattern)
+    unless pattern_exists?(pattern)
+      raise "#{pattern} did not pass"
     end
   end
 
   def step_file(pattern)
     pattern.gsub(/ /, '_') + '.step'
+  end
+
+  def pattern_exists?(pattern)
+    File.exist?(File.join(current_dir, step_file(pattern)))
   end
 end
