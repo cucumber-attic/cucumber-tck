@@ -141,19 +141,3 @@ Feature: Core: Scenarios, Steps, Mappings
       """
     When Cucumber runs the scenario with steps for a calculator
     Then the scenario passes
-
-  Scenario: Steps accepting a DocString parameter
-    Given a scenario "Add three numbers" with:
-      """
-      Given a calculator
-      When the calculator adds up the following numbers:
-        \"\"\"
-        3
-        6
-        1
-        12
-        \"\"\"
-      Then the calculator returns "22"
-      """
-    When Cucumber runs the scenario with steps for a calculator
-    Then the scenario passes
