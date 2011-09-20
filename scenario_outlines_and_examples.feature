@@ -1,1 +1,1 @@
-Feature: Scenario Outlines
+Feature: Scenario Outlines and Examples
