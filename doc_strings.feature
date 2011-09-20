@@ -1,4 +1,4 @@
-Feature: Multiline strings
+Feature: Doc Strings
 
   Multiline strings are handy for specifying a larger piece of
   text. This is done using the DocString syntax. The text should be
