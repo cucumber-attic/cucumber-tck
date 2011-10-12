@@ -27,6 +27,14 @@ Given /^the step "([^"]*)" has a mapping failing with the message "([^"]*)"$/ do
   write_failing_mapping_with_message(step_name, message)
 end
 
+Given /^a World variable initialized to (\d+)$/ do |value|
+  write_world_variable_with_numeric_value(value)
+end
+
+Given /^a World function$/ do
+  write_world_function
+end
+
 When /^Cucumber executes the scenario "([^"]*)"$/ do |scenario_name|
   run_scenario(scenario_name)
 end
@@ -39,6 +47,45 @@ When /^Cucumber runs the scenario with steps for a calculator$/ do
   write_calculator_code
   write_mappings_for_calculator
   run_scenario(@scenario_name)
+end
+
+When /^Cucumber executes a scenario that increments the World variable by (\d+)$/ do |increment_value|
+  write_mapping_incrementing_world_variable_by_value("I increment", increment_value)
+  write_mapping_logging_world_variable_value("I log the variable value")
+  write_feature <<-EOF
+Feature:
+  Scenario:
+    When I increment
+    Then I log the variable value
+EOF
+  run_feature
+end
+
+When /^Cucumber executes two scenarios that increment the World variable by (\d+)$/ do |increment_value|
+  write_mapping_incrementing_world_variable_by_value("I increment", increment_value)
+  write_mapping_logging_world_variable_value("I log the variable value", "1")
+  write_mapping_logging_world_variable_value("I log the variable value again", "2")
+  write_feature <<-EOF
+Feature:
+  Scenario:
+    When I increment
+    Then I log the variable value
+  Scenario:
+    When I increment again
+    Then I log the variable value again
+EOF
+  run_feature
+end
+
+#"
+When /^Cucumber executes a scenario that calls the World function$/ do
+  write_mapping_calling_world_function("I call the world function")
+  write_feature <<-EOF
+Feature:
+  Scenario:
+    When I call the world function
+EOF
+  run_feature
 end
 
 Then /^the scenario passes$/ do
@@ -81,4 +128,13 @@ end
 Then /^the failure message "([^"]*)" is output$/ do |message|
   assert_partial_output(message, all_output)
   assert_success false
+end
+
+Then /^the World variable should have contained (\d+) at the end of the (|first |second )scenario$/ do |value, scenario_number|
+  time = scenario_number == "2" ? 2 : 1
+  assert_world_variable_held_value_at_time value, time
+end
+
+Then /^the World function should have been called$/ do
+  assert_world_function_called
 end
