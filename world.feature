@@ -18,3 +18,10 @@ Feature: World (or Context)
     When Cucumber executes a scenario that calls the World function
     Then the feature passes
     And the World function should have been called
+
+  Scenario: replace World constructor
+    Given a custom World constructor
+    And a World function
+    When Cucumber executes a scenario that calls the World function
+    Then the feature passes
+    And the World function should have been called

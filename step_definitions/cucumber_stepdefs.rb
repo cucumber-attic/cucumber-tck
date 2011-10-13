@@ -35,6 +35,10 @@ Given /^a World function$/ do
   write_world_function
 end
 
+Given /^a custom World constructor$/ do
+  write_custom_world_constructor
+end
+
 When /^Cucumber executes the scenario "([^"]*)"$/ do |scenario_name|
   run_scenario(scenario_name)
 end
