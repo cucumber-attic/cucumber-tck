@@ -1,9 +1,11 @@
 require File.dirname(__FILE__) + '/cucumber_mappings'
 
+DEFAULT_SCENARIO_NAME = "scenario"
+
 World(CucumberMappings)
 
-Given /^a scenario "([^"]*)" with:$/ do |scenario_name, steps|
-  @scenario_name = scenario_name
+Given /^a scenario (?:"([^"]*)" )?with:$/ do |scenario_name, steps|
+  @scenario_name = scenario_name || DEFAULT_SCENARIO_NAME
   scenario_with_steps(scenario_name, steps)
 end
 
@@ -27,6 +29,10 @@ Given /^the step "([^"]*)" has a mapping failing with the message "([^"]*)"$/ do
   write_failing_mapping_with_message(step_name, message)
 end
 
+Given /^the step "([^"]*)" has a passing mapping that receives a data table$/ do |step_name|
+  write_mapping_receiving_data_table(step_name)
+end
+
 Given /^a World variable initialized to (\d+)$/ do |value|
   write_world_variable_with_numeric_value(value)
 end
@@ -39,8 +45,8 @@ Given /^a custom World constructor$/ do
   write_custom_world_constructor
 end
 
-When /^Cucumber executes the scenario "([^"]*)"$/ do |scenario_name|
-  run_scenario(scenario_name)
+When /^Cucumber executes the scenario(?: "([^"]*)")?$/ do |scenario_name|
+  run_scenario(scenario_name || DEFAULT_SCENARIO_NAME)
 end
 
 When /^Cucumber runs the feature$/ do
@@ -141,4 +147,8 @@ end
 
 Then /^the World function should have been called$/ do
   assert_world_function_called
+end
+
+Then /^the received data table array equals the following:$/ do |array_source|
+  assert_data_table_equals_array_source(array_source)
 end
