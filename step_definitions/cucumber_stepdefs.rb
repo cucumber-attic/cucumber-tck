@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/cucumber_mappings'
 
-DEFAULT_SCENARIO_NAME = "scenario"
+DEFAULT_SCENARIO_NAME          = "scenario"
+DATA_TABLE_RECEIVING_STEP_NAME = "a table:"
 
 World(CucumberMappings)
 
@@ -30,7 +31,16 @@ Given /^the step "([^"]*)" has a mapping failing with the message "([^"]*)"$/ do
 end
 
 Given /^the step "([^"]*)" has a passing mapping that receives a data table$/ do |step_name|
-  write_mapping_receiving_data_table(step_name)
+  write_mapping_receiving_data_table_as_raw(step_name)
+end
+
+Given /^the following data table in a step:$/ do |data_table_string|
+  write_feature <<-EOF
+Feature:
+  Scenario:
+    Given #{DATA_TABLE_RECEIVING_STEP_NAME}
+#{indent_code(data_table_string, 3)}
+EOF
 end
 
 Given /^a World variable initialized to (\d+)$/ do |value|
@@ -87,7 +97,6 @@ EOF
   run_feature
 end
 
-#"
 When /^Cucumber executes a scenario that calls the World function$/ do
   write_mapping_calling_world_function("I call the world function")
   write_feature <<-EOF
@@ -95,6 +104,11 @@ Feature:
   Scenario:
     When I call the world function
 EOF
+  run_feature
+end
+
+When /^the data table is passed to a step mapping that converts it to key\/value pairs$/ do
+  write_mapping_receiving_data_table_as_hashes(DATA_TABLE_RECEIVING_STEP_NAME)
   run_feature
 end
 
@@ -149,6 +163,10 @@ Then /^the World function should have been called$/ do
   assert_world_function_called
 end
 
-Then /^the received data table array equals the following:$/ do |array_source|
-  assert_data_table_equals_array_source(array_source)
+Then /^the received data table array equals the following:$/ do |json|
+  assert_data_table_equals_json(json)
+end
+
+Then /^the data table is converted to the following:$/ do |json|
+  assert_data_table_equals_json(json)
 end

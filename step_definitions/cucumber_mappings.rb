@@ -32,4 +32,12 @@ EOF
   def pattern_exists?(pattern)
     File.exist?(File.join(current_dir, step_file(pattern)))
   end
+
+  protected
+
+  def indent_code(code, levels = 1)
+    indented = ''
+    code.each_line { |line| indented += "#{'  ' * levels}#{line}" }
+    indented
+  end
 end

@@ -17,3 +17,19 @@ Feature: Data Tables
         [ "Cucumis anguria", "Burr Gherkin" ]
       ]
       """
+
+  Scenario: a data table can be read as an array of hashes
+    Given the following data table in a step:
+      """
+      | Latin           | English      |
+      | Cucumis sativus | Cucumber     |
+      | Cucumis anguria | Burr Gherkin |
+      """
+    When the data table is passed to a step mapping that converts it to key/value pairs
+    Then the data table is converted to the following:
+      """
+      [
+        { "Latin":"Cucumis sativus", "English":"Cucumber" },
+        { "Latin":"Cucumis anguria", "English":"Burr Gherkin" }
+      ]
+      """
