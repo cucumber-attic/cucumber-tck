@@ -14,48 +14,48 @@ Feature: Core: Scenarios, Steps, Mappings
   executed, and the result is communicated to the user.
 
   Scenario: All steps passing means the scenario passes
-    Given a scenario "Basic Arithmetic" with:
+    Given a scenario with:
       """
       When I add 4 and 5
       Then the result is 9
       """
     And the step "I add 4 and 5" has a passing mapping
     And the step "the result is 9" has a passing mapping
-    When Cucumber executes the scenario "Basic Arithmetic"
+    When Cucumber executes the scenario
     Then the scenario passes
 
   Scenario: Failing step means the scenario fails
-    Given a scenario "Basic Arithmetic" with:
+    Given a scenario with:
       """
       When I add 4 and 5
       Then the result is 9
       """
     And the step "I add 4 and 5" has a failing mapping
     And the step "the result is 9" has a passing mapping
-    When Cucumber executes the scenario "Basic Arithmetic"
+    When Cucumber executes the scenario
     Then the scenario fails
     And the step "the result is 9" is skipped
 
   Scenario: Pending step means the scenario is pending
-    Given a scenario "Basic Arithmetic" with:
+    Given a scenario with:
       """
       When I add 4 and 5
       Then the result is 9
       """
     And the step "I add 4 and 5" has a pending mapping
     And the step "the result is 9" has a passing mapping
-    When Cucumber executes the scenario "Basic Arithmetic"
+    When Cucumber executes the scenario
     Then the scenario is pending
     And the step "the result is 9" is skipped
 
   Scenario: Missing step mapping means the scenario is undefined
-    Given a scenario "Basic Arithmetic" with:
+    Given a scenario with:
       """
       When I add 4 and 5
       Then the result is 9
       """
     And the step "the result is 9" has a passing mapping
-    When Cucumber executes the scenario "Basic Arithmetic"
+    When Cucumber executes the scenario
     Then the scenario is undefined
     And the step "the result is 9" is skipped
 
@@ -71,7 +71,7 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the feature passes
 
   Scenario: Simple flat steps
-    Given a scenario "Calculate PI" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator computes PI
@@ -81,7 +81,7 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the scenario passes
 
   Scenario: Given, When, Then, And and But steps
-    Given a scenario "Simple math" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator adds up 1 and 2
@@ -93,7 +93,7 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the scenario passes
 
   Scenario: Failing steps
-    Given a scenario "Too simple math" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator adds up 3 and 0.14
@@ -103,7 +103,7 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the scenario fails
 
   Scenario: Single-parameter step
-    Given a scenario "Calculate PI" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator computes PI
@@ -113,7 +113,7 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the scenario passes
 
   Scenario: Two-parameter step
-    Given a scenario "Add two numbers" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator adds up "12" and "51"
@@ -123,7 +123,7 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the scenario passes
 
   Scenario: Two-parameter step failing
-    Given a scenario "Add two numbers" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator adds up "12" and "51"
@@ -133,7 +133,7 @@ Feature: Core: Scenarios, Steps, Mappings
     Then the scenario fails
 
   Scenario: Three-parameter step
-    Given a scenario "Add three numbers" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator adds up "3", "4" and "5"

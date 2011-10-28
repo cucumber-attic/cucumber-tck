@@ -6,7 +6,7 @@ Feature: Doc Strings
   of their own.
 
   Scenario: Step accepting a DocString parameter
-    Given a scenario "Add three numbers" with:
+    Given a scenario with:
       """
       Given a calculator
       When the calculator adds up the following numbers:

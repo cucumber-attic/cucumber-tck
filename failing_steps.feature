@@ -4,14 +4,14 @@ Feature: Failing steps
   I want to see the details about failing steps
 
   Scenario: see exception message
-    Given a scenario "Basic Arithmetic" with:
+    Given a scenario with:
       """
       When I divide 10 by 0
       Then the result is 9
       """
     And the step "I divide 10 by 0" has a mapping failing with the message "Divide by 0, uh?"
     And the step "the result is 9" has a passing mapping
-    When Cucumber executes the scenario "Basic Arithmetic"
+    When Cucumber executes the scenario
     Then the failure message "Divide by 0, uh?" is output
 
   Scenario: see failing scenarios

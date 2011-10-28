@@ -5,9 +5,8 @@ DATA_TABLE_RECEIVING_STEP_NAME = "a table:"
 
 World(CucumberMappings)
 
-Given /^a scenario (?:"([^"]*)" )?with:$/ do |scenario_name, steps|
-  @scenario_name = scenario_name || DEFAULT_SCENARIO_NAME
-  scenario_with_steps(scenario_name, steps)
+Given /^a scenario with:$/ do |steps|
+  scenario_with_steps(DEFAULT_SCENARIO_NAME, steps)
 end
 
 Given /^the following feature:$/ do |feature|
@@ -55,18 +54,14 @@ Given /^a custom World constructor$/ do
   write_custom_world_constructor
 end
 
-When /^Cucumber executes the scenario(?: "([^"]*)")?$/ do |scenario_name|
-  run_scenario(scenario_name || DEFAULT_SCENARIO_NAME)
-end
-
-When /^Cucumber runs the feature$/ do
+When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
   run_feature
 end
 
 When /^Cucumber runs the scenario with steps for a calculator$/ do
   write_calculator_code
   write_mappings_for_calculator
-  run_scenario(@scenario_name)
+  run_feature
 end
 
 When /^Cucumber executes a scenario that increments the World variable by (\d+)$/ do |increment_value|
