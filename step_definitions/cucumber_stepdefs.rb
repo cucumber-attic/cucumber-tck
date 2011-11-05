@@ -13,6 +13,10 @@ Given /^the following feature:$/ do |feature|
   write_feature(feature)
 end
 
+Given /^the (?:step "[^"]*" has|steps have) no mappings?$/ do
+  # no-op
+end
+
 Given /^the step "([^"]*)" has a passing mapping$/ do |step_name|
   write_passing_mapping(step_name)
 end
@@ -164,4 +168,20 @@ end
 
 Then /^the data table is converted to the following:$/ do |json|
   assert_data_table_equals_json(json)
+end
+
+Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) is suggested$/ do |stepdef_type, stepdef_name|
+  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name)
+end
+
+Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) with (\d+) parameters? is suggested$/ do |stepdef_type, stepdef_name, parameter_count|
+  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name, parameter_count.to_i)
+end
+
+Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) with a doc string is suggested$/ do |stepdef_type, stepdef_name|
+  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name, 0, true)
+end
+
+Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) with a data table is suggested$/ do |stepdef_type, stepdef_name|
+  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name, 0, false, true)
 end
