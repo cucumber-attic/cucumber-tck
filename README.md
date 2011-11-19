@@ -1,4 +1,6 @@
-# Implementation-independent Cucumber features
+# Cucumber Technology Compatibility Kit
+
+## Implementation-independent Cucumber features
 
 This is the collection of features that are expected to run successfully against any Cucumber implementation.
 
