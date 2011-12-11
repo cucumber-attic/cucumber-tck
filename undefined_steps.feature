@@ -40,9 +40,14 @@ Feature: Undefined steps
     And a "Then" step definition snippet for /^I have nothing left to eat$/ is suggested
 
   Scenario: star steps (*)
+    All keywords are aliased to * in all i18n translations of Gherkin. The
+    purpose is to allow a bullet-list style of steps. Just like with the And
+    and But keywords, the previous keyword should be used for step definitions.
+    If there are no previous steps, use Given.
+  
     Given a scenario with:
       """
-      Given I am a veggie
+      * I am a veggie
       * I love food
       When I eat gherkins
       * I eat cucumbers
@@ -55,28 +60,10 @@ Feature: Undefined steps
     Then a "Given" step definition snippet for /^I am a veggie$/ is suggested
     And a "Given" step definition snippet for /^I love food$/ is suggested
     And a "When" step definition snippet for /^I eat gherkins$/ is suggested
-    And a "Given" step definition snippet for /^I eat cucumbers$/ is suggested
+    And a "When" step definition snippet for /^I eat cucumbers$/ is suggested
     And a "Then" step definition snippet for /^I feel satiated$/ is suggested
-    And a "Given" step definition snippet for /^I feel energized$/ is suggested
-    And a "Given" step definition snippet for /^I have nothing left to eat$/ is suggested
-
-  Scenario: escape regexp special characters
-    Given a scenario with:
-      """
-      Given I am a happy veggie \o/
-      When I type -[]{}()*+?.,\^$|#/
-      """
-    When Cucumber executes the scenario
-    Then a "Given" step definition snippet for /^I am a happy veggie \\o\/$/ is suggested
-    Then a "When" step definition snippet for /^I type \-\[\]\{\}\(\)\*\+\?\.\,\\\^\$\|\#\/$/ is suggested
-
-  Scenario: step matching groups
-    Given a scenario with:
-      """
-      Given I have 5 "kekiri" cucumbers
-      """
-    When Cucumber executes the scenario
-    Then a "Given" step definition snippet for /^I have (\d+) "([^"]*)" cucumbers$/ with 2 parameters is suggested
+    And a "Then" step definition snippet for /^I feel energized$/ is suggested
+    And a "Then" step definition snippet for /^I have nothing left to eat$/ is suggested
 
   Scenario: step with doc strings
     Given a scenario with:

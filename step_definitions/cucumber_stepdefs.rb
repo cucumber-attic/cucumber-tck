@@ -170,18 +170,18 @@ Then /^the data table is converted to the following:$/ do |json|
   assert_data_table_equals_json(json)
 end
 
-Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) is suggested$/ do |stepdef_type, stepdef_name|
-  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name)
+Then /^a "(Given|When|Then)" step definition snippet for \/(.*)\/ is suggested$/ do |stepdef_keyword, stepdef_pattern|
+  assert_suggested_step_definition_snippet(stepdef_keyword, stepdef_pattern)
 end
 
-Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) with (\d+) parameters? is suggested$/ do |stepdef_type, stepdef_name, parameter_count|
-  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name, parameter_count.to_i)
+Then /^a "(Given|When|Then)" step definition snippet for \/(.*)\/ with (\d+) parameters? is suggested$/ do |stepdef_keyword, stepdef_pattern, parameter_count|
+  assert_suggested_step_definition_snippet(stepdef_keyword, stepdef_pattern, parameter_count.to_i)
 end
 
-Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) with a doc string is suggested$/ do |stepdef_type, stepdef_name|
-  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name, 0, true)
+Then /^a "(Given|When|Then)" step definition snippet for \/(.*)\/ with a doc string is suggested$/ do |stepdef_keyword, stepdef_pattern|
+  assert_suggested_step_definition_snippet(stepdef_keyword, stepdef_pattern, 0, true)
 end
 
-Then /^a "(Given|When|Then)" step definition snippet for (\/.*\/) with a data table is suggested$/ do |stepdef_type, stepdef_name|
-  assert_suggested_step_definition_snippet(stepdef_type, stepdef_name, 0, false, true)
+Then /^a "(Given|When|Then)" step definition snippet for \/(.*)\/ with a data table is suggested$/ do |stepdef_keyword, stepdef_pattern|
+  assert_suggested_step_definition_snippet(stepdef_keyword, stepdef_pattern, 0, false, true)
 end
