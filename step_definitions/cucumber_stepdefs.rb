@@ -58,7 +58,16 @@ Given /^a custom World constructor$/ do
   write_custom_world_constructor
 end
 
+Given /^a passing (before|after) hook$/ do |hook_type|
+  write_passing_hook hook_type
+end
+
 When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
+  run_feature
+end
+
+When /^Cucumber executes a scenario$/ do
+  write_scenario
   run_feature
 end
 
@@ -160,6 +169,14 @@ end
 
 Then /^the World function should have been called$/ do
   assert_world_function_called
+end
+
+Then /^the (after|before) hook is fired (?:after|before) the scenario$/ do |hook_type|
+  if hook_type == 'before'
+    assert_cycle_sequence('before', 'step')
+  else
+    assert_cycle_sequence('step', 'after')
+  end
 end
 
 Then /^the received data table array equals the following:$/ do |json|
