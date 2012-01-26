@@ -62,6 +62,10 @@ Given /^a passing (before|after) hook$/ do |hook_type|
   write_passing_hook hook_type
 end
 
+Given /^a scenario tagged with "([^"]*)"$/ do |tag|
+  write_passing_scenario_with_tags tag
+end
+
 When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
   run_feature
 end
@@ -118,6 +122,10 @@ end
 When /^the data table is passed to a step mapping that converts it to key\/value pairs$/ do
   write_mapping_receiving_data_table_as_hashes(DATA_TABLE_RECEIVING_STEP_NAME)
   run_feature
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)"$/ do |tag|
+  run_feature_with_tag tag
 end
 
 Then /^the scenario passes$/ do
@@ -201,4 +209,8 @@ end
 
 Then /^a "(Given|When|Then)" step definition snippet for \/(.*)\/ with a data table is suggested$/ do |stepdef_keyword, stepdef_pattern|
   assert_suggested_step_definition_snippet(stepdef_keyword, stepdef_pattern, 0, false, true)
+end
+
+Then /^only the first scenario is executed$/ do
+  assert_executed_scenarios 1
 end
