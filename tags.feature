@@ -7,7 +7,7 @@ Feature: Tags
     # cucumber --tags @foo
     Then only the first scenario is executed
 
-  Scenario: execute scenarios matching a tag
+  Scenario: execute scenarios not matching a tag
     Given a scenario tagged with "@foo"
     And a scenario tagged with "@bar"
     When Cucumber executes scenarios not tagged with "@bar"
