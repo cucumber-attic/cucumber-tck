@@ -128,6 +128,10 @@ When /^Cucumber executes scenarios tagged with "([^"]*)"$/ do |tag|
   run_feature_with_tag tag
 end
 
+When /^Cucumber executes scenarios not tagged with "([^"]*)"$/ do |tag|
+  run_feature_without_tag tag
+end
+
 Then /^the scenario passes$/ do
   assert_passing_scenario
 end
