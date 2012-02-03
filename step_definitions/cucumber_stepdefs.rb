@@ -125,11 +125,15 @@ When /^the data table is passed to a step mapping that converts it to key\/value
 end
 
 When /^Cucumber executes scenarios tagged with "([^"]*)"$/ do |tag|
-  run_feature_with_tag tag
+  run_feature_with_tag_groups [[tag]]
 end
 
 When /^Cucumber executes scenarios not tagged with "([^"]*)"$/ do |tag|
-  run_feature_without_tag tag
+  run_feature_with_tag_groups [["~#{tag}"]]
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)" or "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [[tag1, tag2]]
 end
 
 Then /^the scenario passes$/ do
@@ -217,4 +221,8 @@ end
 
 Then /^only the first scenario is executed$/ do
   assert_executed_scenarios 1
+end
+
+Then /^only the first two scenarios are executed$/ do
+  assert_executed_scenarios 1, 2
 end
