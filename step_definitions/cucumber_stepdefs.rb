@@ -62,16 +62,24 @@ Given /^a passing (before|after) hook$/ do |hook_type|
   write_passing_hook hook_type
 end
 
+Given /^a scenario without any tags$/ do
+  write_scenario
+end
+
 Given /^a scenario tagged with "([^"]*)"$/ do |tag|
-  write_passing_scenario_with_tags tag
+  write_scenario :with_tags => [tag]
 end
 
 Given /^a scenario tagged with "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
-  write_passing_scenario_with_tags [tag1, tag2]
+  write_scenario :with_tags => [tag1, tag2]
 end
 
 Given /^a scenario tagged with "([^"]*)", "([^"]*)" and "([^"]*)"$/ do |tag1, tag2, tag3|
-  write_passing_scenario_with_tags [tag1, tag2, tag3]
+  write_scenario :with_tags => [tag1, tag2, tag3]
+end
+
+Given /^a feature tagged with "([^"]*)"$/ do |tag|
+  create_empty_feature :with_tags => [tag]
 end
 
 When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
@@ -217,9 +225,9 @@ end
 
 Then /^the (after|before) hook is fired (?:after|before) the scenario$/ do |hook_type|
   if hook_type == 'before'
-    assert_cycle_sequence('before', 'step')
+    assert_cycle_sequence('before', 'step 1')
   else
-    assert_cycle_sequence('step', 'after')
+    assert_cycle_sequence('step 1', 'after')
   end
 end
 
@@ -247,7 +255,7 @@ Then /^a "(Given|When|Then)" step definition snippet for \/(.*)\/ with a data ta
   assert_suggested_step_definition_snippet(stepdef_keyword, stepdef_pattern, 0, false, true)
 end
 
-Then /^only the first scenario is executed$/ do
+Then /^(?:only the first|the) scenario is executed$/ do
   assert_executed_scenarios 1
 end
 

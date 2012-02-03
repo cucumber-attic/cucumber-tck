@@ -63,3 +63,8 @@ Feature: Tags
     # cucumber --tags @baz --tags ~@foo --tags ~@bar
     Then only the third scenario is executed
 
+  Scenario: execute scenario with tagged feature
+    Given a feature tagged with "@foo"
+    And a scenario without any tags
+    When Cucumber executes scenarios tagged with "@foo"
+    Then the scenario is executed

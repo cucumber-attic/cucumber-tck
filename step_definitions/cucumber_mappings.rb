@@ -13,10 +13,12 @@ EOF
     "#{features_dir}/a_feature.feature"
   end
 
-  def create_empty_feature
+  def create_empty_feature options = {}
+    tags = options[:with_tags] || []
+
     unless @feature_file_created
       write_file(feature_file_path, <<-EOF)
-Feature: A feature
+#{tags.any? ? tags.join(' ') + "\n": ''}Feature: A feature
 EOF
       @feature_file_created = true
     end
