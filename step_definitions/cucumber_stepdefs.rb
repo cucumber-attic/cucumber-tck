@@ -62,6 +62,18 @@ Given /^a passing (before|after) hook$/ do |hook_type|
   write_passing_hook hook_type
 end
 
+Given /^a scenario tagged with "([^"]*)"$/ do |tag|
+  write_passing_scenario_with_tags tag
+end
+
+Given /^a scenario tagged with "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
+  write_passing_scenario_with_tags [tag1, tag2]
+end
+
+Given /^a scenario tagged with "([^"]*)", "([^"]*)" and "([^"]*)"$/ do |tag1, tag2, tag3|
+  write_passing_scenario_with_tags [tag1, tag2, tag3]
+end
+
 When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
   run_feature
 end
@@ -118,6 +130,38 @@ end
 When /^the data table is passed to a step mapping that converts it to key\/value pairs$/ do
   write_mapping_receiving_data_table_as_hashes(DATA_TABLE_RECEIVING_STEP_NAME)
   run_feature
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)"$/ do |tag|
+  run_feature_with_tag_groups [[tag]]
+end
+
+When /^Cucumber executes scenarios not tagged with "([^"]*)"$/ do |tag|
+  run_feature_with_tag_groups [["~#{tag}"]]
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)" or "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [[tag1, tag2]]
+end
+
+When /^Cucumber executes scenarios tagged with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [[tag1], [tag2]]
+end
+
+When /^Cucumber executes scenarios not tagged with "([^"]*)" nor "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [["~#{tag1}"], ["~#{tag2}"]]
+end
+
+When /^Cucumber executes scenarios not tagged with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [["~#{tag1}", "~#{tag2}"]]
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)" or without "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [["#{tag1}", "~#{tag2}"]]
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)" but not with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2, tag3|
+  run_feature_with_tag_groups [["#{tag1}"], ["~#{tag2}"], ["~#{tag3}"]]
 end
 
 Then /^the scenario passes$/ do
@@ -201,4 +245,20 @@ end
 
 Then /^a "(Given|When|Then)" step definition snippet for \/(.*)\/ with a data table is suggested$/ do |stepdef_keyword, stepdef_pattern|
   assert_suggested_step_definition_snippet(stepdef_keyword, stepdef_pattern, 0, false, true)
+end
+
+Then /^only the first scenario is executed$/ do
+  assert_executed_scenarios 1
+end
+
+Then /^only the first two scenarios are executed$/ do
+  assert_executed_scenarios 1, 2
+end
+
+Then /^only the third scenario is executed$/ do
+  assert_executed_scenarios 3
+end
+
+Then /^only the second, third and fourth scenarios are executed$/ do
+  assert_executed_scenarios 2, 3, 4
 end
