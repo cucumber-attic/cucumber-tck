@@ -66,6 +66,10 @@ Given /^a scenario tagged with "([^"]*)"$/ do |tag|
   write_passing_scenario_with_tags tag
 end
 
+Given /^a scenario tagged with "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
+  write_passing_scenario_with_tags [tag1, tag2]
+end
+
 When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
   run_feature
 end
@@ -134,6 +138,10 @@ end
 
 When /^Cucumber executes scenarios tagged with "([^"]*)" or "([^"]*)"$/ do |tag1, tag2|
   run_feature_with_tag_groups [[tag1, tag2]]
+end
+
+When /^Cucumber executes scenarios tagged with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [[tag1], [tag2]]
 end
 
 Then /^the scenario passes$/ do
