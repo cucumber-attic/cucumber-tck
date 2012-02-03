@@ -29,21 +29,23 @@ Feature: Tags
     # cucumber --tags @foo --tags @bar
     Then only the first scenario is executed
 
-  Scenario: execute scenarios not matching any tag (NOT OR)
+  Scenario: execute scenarios not matching any tag (NOT OR NOT)
     Given a scenario tagged with "@foo" and "@bar"
     And a scenario tagged with "@bar"
     And a scenario tagged with "@baz"
+    And a scenario tagged with "@foo"
     When Cucumber executes scenarios not tagged with "@foo" nor "@bar"
-    # cucumber --tags ~@foo,~@bar
-    Then only the last scenario is executed
+    # cucumber --tags ~@foo --tags ~@bar
+    Then only the third scenario is executed
 
-  Scenario: exclude scenarios matching two tags (AND)
+  Scenario: exclude scenarios matching two tags (NOT AND NOT)
     Given a scenario tagged with "@foo" and "@bar"
     And a scenario tagged with "@bar"
     And a scenario tagged with "@baz"
+    And a scenario tagged with "@foo"
     When Cucumber executes scenarios not tagged with both "@foo" and "@bar"
-    # cucumber --tags ~@foo --tags ~@bar
-    Then only the last two scenarios are executed
+    # cucumber --tags ~@foo,~@bar
+    Then only the second, third and fourth scenarios are executed
 
   Scenario: with tag or without other tag
     Given a scenario tagged with "@foo" and "@bar"
@@ -59,5 +61,5 @@ Feature: Tags
     And a scenario tagged with "@baz"
     When Cucumber executes scenarios tagged with "@baz" but not with both "@foo" and "@bar"
     # cucumber --tags @baz --tags ~@foo --tags ~@bar
-    Then only the last scenario is executed
+    Then only the third scenario is executed
 

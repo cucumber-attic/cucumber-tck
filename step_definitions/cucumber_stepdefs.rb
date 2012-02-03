@@ -144,6 +144,14 @@ When /^Cucumber executes scenarios tagged with both "([^"]*)" and "([^"]*)"$/ do
   run_feature_with_tag_groups [[tag1], [tag2]]
 end
 
+When /^Cucumber executes scenarios not tagged with "([^"]*)" nor "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [["~#{tag1}"], ["~#{tag2}"]]
+end
+
+When /^Cucumber executes scenarios not tagged with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [["~#{tag1}", "~#{tag2}"]]
+end
+
 Then /^the scenario passes$/ do
   assert_passing_scenario
 end
@@ -233,4 +241,12 @@ end
 
 Then /^only the first two scenarios are executed$/ do
   assert_executed_scenarios 1, 2
+end
+
+Then /^only the third scenario is executed$/ do
+  assert_executed_scenarios 3
+end
+
+Then /^only the second, third and fourth scenarios are executed$/ do
+  assert_executed_scenarios 2, 3, 4
 end
