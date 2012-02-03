@@ -70,6 +70,10 @@ Given /^a scenario tagged with "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
   write_passing_scenario_with_tags [tag1, tag2]
 end
 
+Given /^a scenario tagged with "([^"]*)", "([^"]*)" and "([^"]*)"$/ do |tag1, tag2, tag3|
+  write_passing_scenario_with_tags [tag1, tag2, tag3]
+end
+
 When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
   run_feature
 end
@@ -150,6 +154,14 @@ end
 
 When /^Cucumber executes scenarios not tagged with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
   run_feature_with_tag_groups [["~#{tag1}", "~#{tag2}"]]
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)" or without "([^"]*)"$/ do |tag1, tag2|
+  run_feature_with_tag_groups [["#{tag1}", "~#{tag2}"]]
+end
+
+When /^Cucumber executes scenarios tagged with "([^"]*)" but not with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2, tag3|
+  run_feature_with_tag_groups [["#{tag1}"], ["~#{tag2}"], ["~#{tag3}"]]
 end
 
 Then /^the scenario passes$/ do
