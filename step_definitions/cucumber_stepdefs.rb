@@ -62,6 +62,10 @@ Given /^a passing (before|after) hook$/ do |hook_type|
   write_passing_hook hook_type
 end
 
+Given /^a passing around hook$/ do
+  write_passing_hook "around"
+end
+
 Given /^a scenario without any tags$/ do
   write_scenario
 end
@@ -229,6 +233,14 @@ Then /^the (after|before) hook is fired (?:after|before) the scenario$/ do |hook
   else
     assert_cycle_sequence('step 1', 'after')
   end
+end
+
+Then /^the around hook fires around the scenario$/ do
+  assert_cycle_sequence('around-pre', 'step 1', 'around-post')
+end
+
+Then /^the around hook is fired around the other hooks$/ do
+  assert_cycle_sequence('around-pre', 'before', 'step 1', 'after', 'around-post')
 end
 
 Then /^the received data table array equals the following:$/ do |json|
