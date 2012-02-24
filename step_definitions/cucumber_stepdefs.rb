@@ -145,35 +145,35 @@ When /^the data table is passed to a step mapping that converts it to key\/value
 end
 
 When /^Cucumber executes scenarios tagged with "([^"]*)"$/ do |tag|
-  run_feature_with_tag_groups [[tag]]
+  run_feature_with_tags tag
 end
 
 When /^Cucumber executes scenarios not tagged with "([^"]*)"$/ do |tag|
-  run_feature_with_tag_groups [["~#{tag}"]]
+  run_feature_with_tags "~#{tag}"
 end
 
 When /^Cucumber executes scenarios tagged with "([^"]*)" or "([^"]*)"$/ do |tag1, tag2|
-  run_feature_with_tag_groups [[tag1, tag2]]
+  run_feature_with_tags "#{tag1},#{tag2}"
 end
 
 When /^Cucumber executes scenarios tagged with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
-  run_feature_with_tag_groups [[tag1], [tag2]]
+  run_feature_with_tags tag1, tag2
 end
 
 When /^Cucumber executes scenarios not tagged with "([^"]*)" nor "([^"]*)"$/ do |tag1, tag2|
-  run_feature_with_tag_groups [["~#{tag1}"], ["~#{tag2}"]]
+  run_feature_with_tags "~#{tag1}", "~#{tag2}"
 end
 
 When /^Cucumber executes scenarios not tagged with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2|
-  run_feature_with_tag_groups [["~#{tag1}", "~#{tag2}"]]
+  run_feature_with_tags "~#{tag1},~#{tag2}"
 end
 
 When /^Cucumber executes scenarios tagged with "([^"]*)" or without "([^"]*)"$/ do |tag1, tag2|
-  run_feature_with_tag_groups [["#{tag1}", "~#{tag2}"]]
+  run_feature_with_tags "#{tag1},~#{tag2}"
 end
 
 When /^Cucumber executes scenarios tagged with "([^"]*)" but not with both "([^"]*)" and "([^"]*)"$/ do |tag1, tag2, tag3|
-  run_feature_with_tag_groups [["#{tag1}"], ["~#{tag2}"], ["~#{tag3}"]]
+  run_feature_with_tags tag1, "~#{tag2}", "~#{tag3}"
 end
 
 Then /^the scenario passes$/ do
