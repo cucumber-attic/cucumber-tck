@@ -59,11 +59,15 @@ Given /^a custom World constructor$/ do
 end
 
 Given /^a passing (before|after) hook$/ do |hook_type|
-  write_passing_hook hook_type
+  write_passing_hook :type => hook_type
 end
 
 Given /^a passing around hook$/ do
-  write_passing_hook "around"
+  write_passing_hook :type => "around"
+end
+
+Given /^a hook tagged with "([^"]*)"$/ do |tag|
+  write_passing_hook :tags => [tag]
 end
 
 Given /^a scenario without any tags$/ do
@@ -92,6 +96,11 @@ end
 
 When /^Cucumber executes a scenario$/ do
   write_scenario
+  run_feature
+end
+
+When /^Cucumber executes a scenario tagged with "([^"]*)"$/ do |tag|
+  write_scenario :with_tags => [tag]
   run_feature
 end
 
@@ -241,6 +250,10 @@ end
 
 Then /^the around hook is fired around the other hooks$/ do
   assert_cycle_sequence('around-pre', 'before', 'step 1', 'after', 'around-post')
+end
+
+Then /^the hook is fired$/ do
+  assert_cycle_sequence("hook")
 end
 
 Then /^the received data table array equals the following:$/ do |json|
