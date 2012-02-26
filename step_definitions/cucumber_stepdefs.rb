@@ -58,16 +58,16 @@ Given /^a custom World constructor$/ do
   write_custom_world_constructor
 end
 
-Given /^a passing (before|after) hook$/ do |hook_type|
+Given /^a passing (before|after|around) hook$/ do |hook_type|
   write_passing_hook :type => hook_type
-end
-
-Given /^a passing around hook$/ do
-  write_passing_hook :type => "around"
 end
 
 Given /^a hook tagged with "([^"]*)"$/ do |tag|
   write_passing_hook :tags => [tag]
+end
+
+Given /^an untagged hook$/ do
+  write_passing_hook
 end
 
 Given /^a scenario without any tags$/ do
@@ -94,7 +94,7 @@ When /^Cucumber (?:runs|executes) the (?:feature|scenario)$/ do
   run_feature
 end
 
-When /^Cucumber executes a scenario$/ do
+When /^Cucumber executes a scenario(?: with no tags)?$/ do
   write_scenario
   run_feature
 end
@@ -237,6 +237,7 @@ Then /^the World function should have been called$/ do
 end
 
 Then /^the (after|before) hook is fired (?:after|before) the scenario$/ do |hook_type|
+  assert_success true
   if hook_type == 'before'
     assert_cycle_sequence('before', 'step 1')
   else
@@ -245,15 +246,23 @@ Then /^the (after|before) hook is fired (?:after|before) the scenario$/ do |hook
 end
 
 Then /^the around hook fires around the scenario$/ do
+  assert_success true
   assert_cycle_sequence('around-pre', 'step 1', 'around-post')
 end
 
 Then /^the around hook is fired around the other hooks$/ do
+  assert_success true
   assert_cycle_sequence('around-pre', 'before', 'step 1', 'after', 'around-post')
 end
 
 Then /^the hook is fired$/ do
+  assert_success true
   assert_cycle_sequence("hook")
+end
+
+Then /^the hook is not fired$/ do
+  assert_success true
+  assert_cycle_sequence_excluding "hook"
 end
 
 Then /^the received data table array equals the following:$/ do |json|
