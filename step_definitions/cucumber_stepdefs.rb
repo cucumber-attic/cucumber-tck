@@ -153,6 +153,11 @@ When /^the data table is passed to a step mapping that converts it to key\/value
   run_feature
 end
 
+When /^the data table is passed to a step mapping that gets the row arrays without the header$/ do
+  write_mapping_receiving_data_table_as_headless_row_array(DATA_TABLE_RECEIVING_STEP_NAME)
+  run_feature
+end
+
 When /^Cucumber executes scenarios tagged with "([^"]*)"$/ do |tag|
   run_feature_with_tags tag
 end
