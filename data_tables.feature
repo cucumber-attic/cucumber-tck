@@ -49,3 +49,19 @@ Feature: Data Tables
         [ "Cucumis anguria", "Burr Gherkin" ]
       ]
       """
+
+  Scenario: data can contain a "|"
+    Given the following data table in a step:
+      """
+      | Latin           | Dutch              |
+      | Cucumis sativus | Komkommer | Augurk |
+      | Cucumis anguria | Burr augurk        |
+      """
+    When the data table is passed to a step mapping that converts it to key/value pairs
+    Then the data table is converted to the following:
+      """
+      [
+        { "Latin":"Cucumis sativus", "Dutch":"Komkommer | Augurk" },
+        { "Latin":"Cucumis anguria", "Dutch":"Burr augurk" }
+      ]
+      """
