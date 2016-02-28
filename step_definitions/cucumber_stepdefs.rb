@@ -223,13 +223,11 @@ Then /^the step "([^"]*)" is skipped$/ do |pattern|
 end
 
 Then /^the feature passes$/ do
-  assert_no_partial_output(failed_output, all_output)
-  assert_success true
+  assert_passing_feature #(failed_output)
 end
 
 Then /^the failure message "([^"]*)" is output$/ do |message|
-  assert_partial_output(message, all_output)
-  assert_success false
+  assert_failing_feature(message)
 end
 
 Then /^the World variable should have contained (\d+) at the end of the (|first |second )scenario$/ do |value, scenario_number|
@@ -242,7 +240,7 @@ Then /^the World function should have been called$/ do
 end
 
 Then /^the (after|before) hook is fired (?:after|before) the scenario$/ do |hook_type|
-  assert_success true
+  assert_returned_success
   if hook_type == 'before'
     assert_cycle_sequence('before', 'step 1')
   else
@@ -251,22 +249,22 @@ Then /^the (after|before) hook is fired (?:after|before) the scenario$/ do |hook
 end
 
 Then /^the around hook fires around the scenario$/ do
-  assert_success true
+  assert_returned_success
   assert_cycle_sequence('around-pre', 'step 1', 'around-post')
 end
 
 Then /^the around hook is fired around the other hooks$/ do
-  assert_success true
+  assert_returned_success
   assert_cycle_sequence('around-pre', 'before', 'step 1', 'after', 'around-post')
 end
 
 Then /^the hook is fired$/ do
-  assert_success true
+  assert_returned_success
   assert_cycle_sequence("hook")
 end
 
 Then /^the hook is not fired$/ do
-  assert_success true
+  assert_returned_success
   assert_cycle_sequence_excluding "hook"
 end
 
