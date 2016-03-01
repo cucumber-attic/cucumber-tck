@@ -50,7 +50,7 @@ EOF
   end
 
   def pattern_exists?(pattern)
-    File.exist?(File.join(current_dir, step_file(pattern)))
+    File.exist?(File.join(expand_path("."), step_file(pattern)))
   end
 
   protected
